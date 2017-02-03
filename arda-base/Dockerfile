@@ -15,4 +15,6 @@ RUN Invoke-WebRequest $Env:DOTNET_DOWNLOAD_URL -OutFile dotnet.zip; \
     Expand-Archive dotnet.zip -DestinationPath $Env:ProgramFiles\dotnet; \
     Remove-Item -Force dotnet.zip
 
-RUN setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '\dotnet')
+RUN setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '\dotnet'); 
+
+RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name ServerPriorityTimeLimit -Value 0 -Type DWord
